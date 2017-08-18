@@ -4,7 +4,9 @@ import {
   Text,
   View,
   Image,
+  TextInput,
 } from 'react-native';
+import SearchInput from './app/searchInput';
 
 const baseUrl = 'https://api.github.com/users/';
 
@@ -30,6 +32,9 @@ export default class App extends React.Component {
         user: user,
       });
     })
+    .catch((error) => {
+      console.error(error);
+    })
     .done();
   }
 
@@ -43,6 +48,9 @@ export default class App extends React.Component {
     console.log(this.state.user);
     return (
       <View style={styles.container}>
+        <View style={styles.topContainer}>
+          <SearchInput />
+        </View>
         <Image source={{uri: this.state.user.avatar_url}} style={styles.thumbnail} />
         <View style={styles.rightContainer}>
           <Text style={styles.title}>{this.state.user.name}</Text>
@@ -69,7 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   loader: {
     flex: 1,
@@ -91,5 +99,9 @@ const styles = StyleSheet.create({
   },
   loadContent: {
     textAlign: 'center',
+  },
+  topContainer: {
+    marginTop: -300,
+    marginRight: -130,
   },
 });
